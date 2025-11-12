@@ -47,14 +47,14 @@ bool TVector<ValType>::operator==(const TVector& v) const {  // сравнени
 	if (StartIndex > v.StartIndex) {
 		i = v.StartIndex;
 		while (i < StartIndex) {
-			if (v.pVector[i++ - v.StartIndex] != 0) {
+			if (v.pVector[i++ - v.StartIndex] != ValType()) {
 				return false;
 			}
 		}
 	} else if(v.StartIndex > StartIndex) {
 		i = StartIndex;
 		while (i < v.StartIndex) {
-			if (pVector[i++ - StartIndex] != 0) {
+			if (pVector[i++ - StartIndex] != ValType()) {
 				return false;
 			}
 		}

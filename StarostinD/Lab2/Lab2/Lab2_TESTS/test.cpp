@@ -45,6 +45,8 @@ TEST(TVector_Constructor, Copy_Constructor) {
 	for (int i = si; i < si; ++i) {
 		EXPECT_EQ(t[i], cp[i]);
 	}
+	cp[si] = -t[si] - 1;
+	EXPECT_NE(cp[si], t[si]);
 }
 
 TEST(TVector_Get, Get_Size_And_StartIndex) {
@@ -244,6 +246,8 @@ TEST(TMatrix_Constructor, Copy_Constructor) {
 			EXPECT_EQ(t[i][j], cp[i][j]);
 		}
 	}
+	cp[0][0] = -t[0][0] + 1;
+	EXPECT_NE(cp[0][0], t[0][0]);
 }
 
 TEST(TMatrix_Constructor, Converting_Constructor) {
@@ -262,7 +266,8 @@ TEST(TMatrix_Constructor, Converting_Constructor) {
 }
 
 TEST(TMatrix_Operators, Equal) {
-	TMatrix<int> m1, m2;
+	TMatrix<int> m1, m2(10);
+	TMatrix<int> m3(11);
 	for (int i = 0; i < m1.GetSize(); ++i) {
 		m1[i] = get_rand_vect(m1.GetSize(), i);
 	}
@@ -274,10 +279,12 @@ TEST(TMatrix_Operators, Equal) {
 	EXPECT_TRUE(m1 == m2);
 	m2[0][0] = m1[0][0] + 1;
 	EXPECT_FALSE(m1 == m2);
+	EXPECT_FALSE(m1 == m3);
 }
 
 TEST(TMatrix_Operators, Not_Equal) {
-	TMatrix<int> m1, m2;
+	TMatrix<int> m1, m2(10);
+	TMatrix<int> m3(11);
 	for (int i = 0; i < m1.GetSize(); ++i) {
 		m1[i] = get_rand_vect(m1.GetSize(), i);
 	}
@@ -289,6 +296,7 @@ TEST(TMatrix_Operators, Not_Equal) {
 	EXPECT_FALSE(m1 != m2);
 	m2[0][0] = m1[0][0] + 1;
 	EXPECT_TRUE(m1 != m2);
+	EXPECT_TRUE(m1 != m3);
 }
 
 TEST(TMatrix_Operators, Assignment) {
